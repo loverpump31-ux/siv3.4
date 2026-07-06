@@ -150,7 +150,8 @@ export default function InventoryPage() {
     const matchStatus = !filterStatus || (
       filterStatus === 'low' ? (p.total_stock || 0) <= p.min_stock_level && (p.total_stock || 0) > 0 :
       filterStatus === 'out' ? (p.total_stock || 0) === 0 :
-      filterStatus === 'ok' ? (p.total_stock || 0) > p.min_stock_level : true
+      filterStatus === 'ok' ? (p.total_stock || 0) > p.min_stock_level :
+      filterStatus === 'has_stock' ? (p.total_stock || 0) > 0 : true
     );
     const matchColor = !filterColor || p.product_colors?.some(c => c.name === filterColor);
     const matchSize = !filterSize || p.product_sizes?.some(s => s.name === filterSize);
@@ -288,6 +289,7 @@ export default function InventoryPage() {
           <option value="">All Status</option>
           <option value="ok">In Stock</option>
           <option value="low">Low Stock</option>
+          <option value="has_stock">Has Stock</option>
           <option value="out">Out of Stock</option>
         </select>
         {allColors.length > 0 && (
